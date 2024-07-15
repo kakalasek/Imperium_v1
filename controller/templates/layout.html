@@ -59,6 +59,19 @@
                 </div>
             </div>
             <div class="col-sm p-3 min-vh-100">
+                  <!-- API Endopoint form-->
+                  {% if title != 'Home' or not title %}
+                  <form>
+                    {{ form.hidden_tag() }}
+                    <legend class="mb-4">Enter your API endpoint</legend>
+                    <div class="row mb-3">
+                      {{ form.endpoint.label}}
+                        {{ form.endpoint(class="form-control form-control-lg") }}
+                    </div>
+                    {{ form.submit(class="btn btn-secondary") }}
+                  </form>
+                  {% endif %}
+
                 <!-- Content -->
                 {% block content %}
                             
