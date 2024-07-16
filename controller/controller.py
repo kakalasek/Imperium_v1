@@ -17,20 +17,27 @@ def scanner():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
         try:
-            requests.get(form.endpoint.data).json() 
-            endpoints[0] = True
+            if requests.get(form.endpoint.data).json()["state"] == "Scanner":
+                endpoints[0] = True
             return redirect(url_for("scanner"))
         except:
             return redirect(url_for("scanner"))
     return render_template('scanner.html', title='Scanner', form=form, endpoint_set=endpoints[0])
+
+@app.route("/scan")
+def scan():
+    if endpoints[0]:
+        data = requests.get("http://127.0.0.1:3001/@scan").json()
+        return data
+    return redirect(url_for("scanner"))
 
 @app.route("/diagnostics", methods=['GET', 'POST'])
 def diagnostics():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
         try:
-            requests.get(form.endpoint.data).json() 
-            endpoints[1] = True
+            if requests.get(form.endpoint.data).json()["state"] == "Diagnostics":
+                endpoints[1] = True
             return redirect(url_for("diagnostics"))
         except:
             return redirect(url_for("diagnostics"))
@@ -41,20 +48,20 @@ def password_cracker():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
         try:
-            requests.get(form.endpoint.data).json() 
-            endpoints[2] = True
+            if requests.get(form.endpoint.data).json()["state"] == "Password_cracker":
+                endpoints[2] = True
             return redirect(url_for("password_cracker"))
         except:
             return redirect(url_for("password_cracker"))
     return render_template('password_cracker.html', title='Password Cracker', form=form, endpoint_set=endpoints[2])
 
 @app.route("/social_engineering", methods=['GET', 'POST'])
-def social_engineering():
+async def social_engineering():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
         try:
-            requests.get(form.endpoint.data).json()
-            endpoints[3] = True 
+            if requests.get(form.endpoint.data).json()["state"] == "Social_engineering":
+                endpoints[3] = True 
             return redirect(url_for("social_engineering"))
         except:
             return redirect(url_for("social_engineering"))
