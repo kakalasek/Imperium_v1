@@ -26,21 +26,36 @@ def scanner():
 def diagnostics():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
-        return redirect(url_for('home'))
+        try:
+            data = requests.get(form.endpoint.data).json() 
+            if data:
+                return data
+        except:
+            return redirect(url_for("diagnostics"))
     return render_template('diagnostics.html', title='Diagnostics', form=form)
 
 @app.route("/password_cracker", methods=['GET', 'POST'])
 def password_cracker():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
-        return redirect(url_for('home'))
+        try:
+            data = requests.get(form.endpoint.data).json() 
+            if data:
+                return data
+        except:
+            return redirect(url_for("password_cracker"))
     return render_template('password_cracker.html', title='Password Cracker', form=form)
 
 @app.route("/social_engineering", methods=['GET', 'POST'])
 def social_engineering():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
-        return redirect(url_for('home'))
+        try:
+            data = requests.get(form.endpoint.data).json() 
+            if data:
+                return data
+        except:
+            return redirect(url_for("social_engineering"))
     return render_template('social_engineering.html', title='Social Engineering', form=form)
 
 if __name__ == '__main__':
