@@ -61,7 +61,7 @@
             <div class="col-sm p-3 min-vh-100">
                   <!-- API Endopoint form-->
                   {% if title != 'Home' or not title %}
-                  <form>
+                  <form method="post" action="">
                     {{ form.hidden_tag() }}
                     <legend class="mb-4">Enter your API endpoint</legend>
                     <div class="row mb-3">
