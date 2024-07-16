@@ -1,4 +1,19 @@
 {% extends 'layout.html' %}
 {% block content %}
-<b>Scanner</b>
+{% if endpoint_set %}
+    <form method="post" action="">
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                {{ scanform.ip.label}}  <!-- Label -->
+            </div>
+            <div class="col-auto">
+                {{ scanform.ip(class="form-control form-control-lg") }}
+            </div>
+            <div class="col-auto">
+                {{ scanform.submit(class="btn btn-secondary") }} <!-- Submit button -->
+            </div>
+        </div>
+    </form>
+
+{% endif %}
 {% endblock %}

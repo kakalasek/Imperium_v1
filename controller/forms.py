@@ -6,3 +6,8 @@ class ApiForm(FlaskForm):
     endpoint = StringField('API Endpoint', 
                             validators=[DataRequired()])
     submit = SubmitField('Test')
+
+class ScanForm(FlaskForm):
+    ip = StringField('IP Adress or Range',
+                       validators=[DataRequired()])
+    submit = SubmitField('Scan')

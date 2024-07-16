@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request
-from forms import ApiForm
+from forms import ApiForm, ScanForm
 import requests
 
 app = Flask(__name__)
@@ -15,6 +15,7 @@ def home():
 @app.route("/scanner", methods=['GET', 'POST'])
 def scanner():
     form = ApiForm()
+    scanform = ScanForm()
     if request.method == 'POST' and form.validate():
         try:
             if requests.get(f"{form.endpoint.data}/@test").json()["state"] == "Scanner":
@@ -22,7 +23,7 @@ def scanner():
             return redirect(url_for("scanner"))
         except:
             return redirect(url_for("scanner"))
-    return render_template('scanner.html', title='Scanner', form=form, endpoint_set=endpoints[0])
+    return render_template('scanner.html', title='Scanner', form=form, scanform=scanform, endpoint_set=endpoints[0])
 
 @app.route("/scan", methods=["GET", "POST"])
 def scan():
