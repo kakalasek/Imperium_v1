@@ -16,6 +16,9 @@ def home():
 def scanner():
     form = ApiForm()
     scanform = ScanForm()
+    if request.method == 'POST' and scanform.validate():
+        data = requests.get(f"{endpoints[0]}/@scan?range={scanform.ip.data}").json()
+        return data
     if request.method == 'POST' and form.validate():
         try:
             if requests.get(f"{form.endpoint.data}/@test").json()["state"] == "Scanner":
@@ -24,13 +27,6 @@ def scanner():
         except:
             return redirect(url_for("scanner"))
     return render_template('scanner.html', title='Scanner', form=form, scanform=scanform, endpoint_set=endpoints[0])
-
-@app.route("/scan", methods=["GET", "POST"])
-def scan():
-    if endpoints[0]:
-        data = requests.get(f"{endpoints[0]}/@scan").json()
-        return data
-    return redirect(url_for("scanner"))
 
 @app.route("/diagnostics", methods=['GET', 'POST'])
 def diagnostics():

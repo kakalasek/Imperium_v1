@@ -2,6 +2,7 @@
 {% block content %}
 {% if endpoint_set %}
     <form method="post" action="">
+        {{ scanform.hidden_tag() }}
         <div class="row g-3 align-items-center">
             <div class="col-auto">
                 {{ scanform.ip.label}}  <!-- Label -->

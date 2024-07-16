@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import subprocess
 
 app = Flask(__name__)
@@ -10,8 +10,7 @@ def test():
 
 @app.route("/@scan")
 def scan():
-    data = subprocess.getoutput("nmap 192.168.0.0/24")
-    print(type(data))
+    data = subprocess.getoutput(f"nmap {request.args.get('range')}")
     return {"data": data}
 
 if __name__ == '__main__':
