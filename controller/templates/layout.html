@@ -58,21 +58,24 @@
                     </ul>
                 </div>
             </div>
+            <!-- Content -->
+
+            <!-- Layout Content -->
             <div class="col-sm p-3 min-vh-100">
-                  <!-- API Endopoint form-->
-                  {% if title != 'Home' or not title %}
+                  <!-- API Endpoint form-->
+                  {% if title != 'Home' or not title %} <!-- Dont display the from if on the home page-->
                   <form method="post" action="">
-                    {{ form.hidden_tag() }}
+                    {{ form.hidden_tag() }} <!-- To protect against CRSF -->
                     <legend class="mb-4">Enter your API endpoint</legend>
                     <div class="row mb-3">
-                      {{ form.endpoint.label}}
-                        {{ form.endpoint(class="form-control form-control-lg") }}
+                      {{ form.endpoint.label}}  <!-- Label -->
+                        {{ form.endpoint(class="form-control form-control-lg") }} <!-- Input field -->
                     </div>
-                    {{ form.submit(class="btn btn-secondary") }}
+                    {{ form.submit(class="btn btn-secondary") }} <!-- Submit button -->
                   </form>
                   {% endif %}
 
-                <!-- Content -->
+                <!-- Custom Content -->
                 {% block content %}
                             
                 {% endblock %}

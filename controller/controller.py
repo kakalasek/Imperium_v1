@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, redirect, request
 from forms import ApiForm
+import requests
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "73eeac3fa1a0ce48f381ca1e6d71f077"
@@ -13,7 +14,12 @@ def home():
 def scanner():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
-        return redirect(url_for('home'))
+        try:
+            data = requests.get(form.endpoint.data).json() 
+            if data:
+                return data
+        except:
+            return redirect(url_for("scanner"))
     return render_template('scanner.html', title='Scanner', form=form)
 
 @app.route("/diagnostics", methods=['GET', 'POST'])
