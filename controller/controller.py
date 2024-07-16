@@ -17,17 +17,17 @@ def scanner():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
         try:
-            if requests.get(form.endpoint.data).json()["state"] == "Scanner":
-                endpoints[0] = True
+            if requests.get(f"{form.endpoint.data}/@test").json()["state"] == "Scanner":
+                endpoints[0] = form.endpoint.data
             return redirect(url_for("scanner"))
         except:
             return redirect(url_for("scanner"))
     return render_template('scanner.html', title='Scanner', form=form, endpoint_set=endpoints[0])
 
-@app.route("/scan")
+@app.route("/scan", methods=["GET", "POST"])
 def scan():
     if endpoints[0]:
-        data = requests.get("http://127.0.0.1:3001/@scan").json()
+        data = requests.get(f"{endpoints[0]}/@scan").json()
         return data
     return redirect(url_for("scanner"))
 
