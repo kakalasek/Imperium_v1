@@ -17,7 +17,7 @@ def scanner():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
         try:
-            data = requests.get(form.endpoint.data).json() 
+            requests.get(form.endpoint.data).json() 
             endpoints[0] = True
             return redirect(url_for("scanner"))
         except:
@@ -29,7 +29,7 @@ def diagnostics():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
         try:
-            data = requests.get(form.endpoint.data).json() 
+            requests.get(form.endpoint.data).json() 
             endpoints[1] = True
             return redirect(url_for("diagnostics"))
         except:
@@ -41,7 +41,7 @@ def password_cracker():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
         try:
-            data = requests.get(form.endpoint.data).json() 
+            requests.get(form.endpoint.data).json() 
             endpoints[2] = True
             return redirect(url_for("password_cracker"))
         except:
@@ -53,7 +53,7 @@ def social_engineering():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
         try:
-            data = requests.get(form.endpoint.data).json()
+            requests.get(form.endpoint.data).json()
             endpoints[3] = True 
             return redirect(url_for("social_engineering"))
         except:
