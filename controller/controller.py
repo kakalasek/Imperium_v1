@@ -6,6 +6,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = "73eeac3fa1a0ce48f381ca1e6d71f077"
 
 endpoints = [False, False, False, False]
+data = ['', '', '', '']
 
 @app.route("/")
 @app.route("/home")
@@ -17,8 +18,8 @@ def scanner():
     form = ApiForm()
     scanform = ScanForm()
     if request.method == 'POST' and scanform.validate():
-        data = requests.get(f"{endpoints[0]}/@scan?range={scanform.ip.data}").json()
-        return data
+        data[0] = requests.get(f"{endpoints[0]}/@scan?range={scanform.ip.data}").json()
+        return redirect(url_for("scanner"))
     if request.method == 'POST' and form.validate():
         try:
             if requests.get(f"{form.endpoint.data}/@test").json()["state"] == "Scanner":
@@ -26,7 +27,7 @@ def scanner():
             return redirect(url_for("scanner"))
         except:
             return redirect(url_for("scanner"))
-    return render_template('scanner.html', title='Scanner', form=form, scanform=scanform, endpoint_set=endpoints[0])
+    return render_template('scanner.html', title='Scanner', form=form, scanform=scanform, endpoint_set=endpoints[0], data=data[0])
 
 @app.route("/diagnostics", methods=['GET', 'POST'])
 def diagnostics():

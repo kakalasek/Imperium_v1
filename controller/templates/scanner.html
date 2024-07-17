@@ -15,6 +15,13 @@
             </div>
         </div>
     </form>
+    {% if data %}
+        {% for host_ip in data["hosts"].split() %}
+        <div>
+            {{ host_ip }}
+        </div>
+        {% endfor %}
+    {% endif %}
 
 {% endif %}
 {% endblock %}
