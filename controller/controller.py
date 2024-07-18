@@ -27,11 +27,12 @@ def scanner():
             return redirect(url_for("scanner"))
         except:
             return redirect(url_for("scanner"))
+    print("at the end")
     return render_template('scanner.html', title='Scanner', form=form, scanform=scanform, endpoint_set=endpoints[0], data=data[0])
 
 @app.route("/scanner/host", methods=['GET', 'POST'])
 def host():
-    return render_template('host.html', title='Host')
+    return render_template('host.html')
 
 @app.route("/diagnostics", methods=['GET', 'POST'])
 def diagnostics():

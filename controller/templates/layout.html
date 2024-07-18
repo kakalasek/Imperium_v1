@@ -63,17 +63,6 @@
             <!-- Layout Content -->
             <div class="col-sm p-3 min-vh-100">
                   <!-- API Endpoint form-->
-                  {% if (title != 'Home' or not title) and not endpoint_set %} <!-- Dont display the from if on the home page-->
-                  <form method="post" action="">
-                    {{ form.hidden_tag() }} <!-- To protect against CRSF -->
-                    <legend class="mb-4">Enter your API endpoint</legend>
-                    <div class="row mb-3 w-50">
-                      {{ form.endpoint.label}}  <!-- Label -->
-                        {{ form.endpoint(class="form-control form-control-lg") }} <!-- Input field -->
-                    </div>
-                    {{ form.submit(class="btn btn-secondary") }} <!-- Submit button -->
-                  </form>
-                  {% endif %}
 
                 <!-- Custom Content -->
                 {% block content %}

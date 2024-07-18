@@ -1,6 +1,19 @@
 {% extends 'layout.html' %} 
 {% block content %} 
-{% if endpoint_set %}
+
+  {% if not endpoint_set %}
+    <form method="post" action="">
+      {{ form.hidden_tag() }} <!-- To protect against CRSF -->
+      <legend class="mb-4">Enter your API endpoint</legend>
+      <div class="row mb-3 w-50">
+        {{ form.endpoint.label}}  <!-- Label -->
+          {{ form.endpoint(class="form-control form-control-lg") }} <!-- Input field -->
+      </div>
+      {{ form.submit(class="btn btn-secondary") }} <!-- Submit button -->
+    </form>
+
+    {% else %}
+
 <div class="container-fluid">
   <div class="row">
     <div class="col">
@@ -30,7 +43,7 @@
         <div class="container-fluid border border-black border-2 rounded p-3">
                 {% for host_ip in data["hosts"].split('#') %}
                 <div class="row mt-3">
-                    {{ host_ip }}
+                    <a href="{{ url_for('host' ) }}"> {{ host_ip }} </a>
                 </div>
                 {% endfor %}
         </div>
@@ -47,5 +60,5 @@
         {% endfor %}
     {% endif %} -->
 
-{% endif %} 
+{% endif %}
 {% endblock %}
