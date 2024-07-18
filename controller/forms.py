@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SelectField, SubmitField
 from wtforms.validators import DataRequired
 
 class ApiForm(FlaskForm):
@@ -10,4 +10,5 @@ class ApiForm(FlaskForm):
 class ScanForm(FlaskForm):
     ip = StringField('IP Adress or Range',
                        validators=[DataRequired()])
+    scan_type = SelectField("Scan Type", choices=[('-sS', 'Syn Scan'), ('-sV', 'Version Scan'), ('-O', 'System Scan'), ('-sF', 'Fin Scan'), ('-sU', 'UDP Scan'), ('-sT', 'Connect Scan')])
     submit = SubmitField('Scan')

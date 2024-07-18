@@ -11,12 +11,38 @@ def extractHosts(file):
         data = json.load(json_file)
         out = ''
         for host in data['nmaprun']['host']:
-            out += host['address']['@addr']
-            out += ' '
+            try:
+                out += host['address'][0]['@addr']
+                out += ' '
+                out += host['status']['@state']
+                if 'port' in host['ports'].keys():
+                    out += ' '
+                    for port in host['ports']['port']:
+                        out += port['@portid']
+                        out += ' '
+                        out += port['@protocol']
+                        out += '/'
+                        out += port['service']['@name']
+                        out += ' | '
+                out += '#'
+            except KeyError:
+                out += host['address']['@addr']
+                out += ' '
+                out += host['status']['@state']
+                if 'port' in host['ports'].keys():
+                    out += ' '
+                    for port in host['ports']['port']:
+                        out += port['@portid']
+                        out += ' '
+                        out += port['@protocol']
+                        out += '/'
+                        out += port['service']['@name']
+                        out += ' | '
+                out += '#'
         return out
 
 def createJson():
-    xml_content = subprocess.getoutput(f"nmap -oX - {request.args.get('range')}")
+    xml_content = subprocess.getoutput(f"sudo nmap -oX - {request.args.get('options')} {request.args.get('range')}")
     data_dict = xmltodict.parse(xml_content)
     json_data = json.dumps(data_dict, indent=4, sort_keys=True)
     with open("json_output.json", "w") as output:

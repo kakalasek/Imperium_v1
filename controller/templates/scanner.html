@@ -1,27 +1,42 @@
-{% extends 'layout.html' %}
-{% block content %}
+{% extends 'layout.html' %} 
+{% block content %} 
 {% if endpoint_set %}
-    <form method="post" action="">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <form method="post" action="">
         {{ scanform.hidden_tag() }}
         <div class="row g-3 align-items-center">
-            <div class="col-auto">
-                {{ scanform.ip.label}}  <!-- Label -->
-            </div>
-            <div class="col-auto">
-                {{ scanform.ip(class="form-control form-control-lg") }}
-            </div>
-            <div class="col-auto">
-                {{ scanform.submit(class="btn btn-secondary") }} <!-- Submit button -->
-            </div>
+          <div class="col-auto">
+            {{ scanform.ip.label}}
+            <!-- Label -->
+          </div>
+          <div class="col-auto">
+            {{ scanform.ip(class="form-control form-control-lg") }}
+          </div>
+          <div class="col-auto">
+            {{ scanform.scan_type(class="form-control")}}
+          </div>
+          <div class="col-auto">
+            {{ scanform.submit(class="btn btn-secondary") }}
+            <!-- Submit button -->
+          </div>
         </div>
-    </form>
-    {% if data %}
-        {% for host_ip in data["hosts"].split() %}
+      </form>
+    </div>
+    <div class="col">
+      <div class="border border-dark border-2">Hello</div>
+    </div>
+  </div>
+</div>
+
+<!-- {% if data %}
+        {% for host_ip in data["hosts"].split('#') %}
         <div>
             {{ host_ip }}
         </div>
         {% endfor %}
-    {% endif %}
+    {% endif %} -->
 
-{% endif %}
+{% endif %} 
 {% endblock %}
