@@ -25,7 +25,16 @@
       </form>
     </div>
     <div class="col">
-      <div class="border border-dark border-2">Hello</div>
+            
+        {% if data %}
+        <div class="container-fluid border border-black border-2 rounded p-3">
+                {% for host_ip in data["hosts"].split('#') %}
+                <div class="row mt-3">
+                    {{ host_ip }}
+                </div>
+                {% endfor %}
+        </div>
+        {% endif %}
     </div>
   </div>
 </div>

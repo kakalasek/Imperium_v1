@@ -29,6 +29,10 @@ def scanner():
             return redirect(url_for("scanner"))
     return render_template('scanner.html', title='Scanner', form=form, scanform=scanform, endpoint_set=endpoints[0], data=data[0])
 
+@app.route("/scanner/host", methods=['GET', 'POST'])
+def host():
+    return render_template('host.html', title='Host')
+
 @app.route("/diagnostics", methods=['GET', 'POST'])
 def diagnostics():
     form = ApiForm()
@@ -54,7 +58,7 @@ def password_cracker():
     return render_template('password_cracker.html', title='Password Cracker', form=form, endpoint_set=endpoints[2])
 
 @app.route("/social_engineering", methods=['GET', 'POST'])
-async def social_engineering():
+def social_engineering():
     form = ApiForm()
     if request.method == 'POST' and form.validate():
         try:

@@ -13,31 +13,9 @@ def extractHosts(file):
         for host in data['nmaprun']['host']:
             try:
                 out += host['address'][0]['@addr']
-                out += ' '
-                out += host['status']['@state']
-                if 'port' in host['ports'].keys():
-                    out += ' '
-                    for port in host['ports']['port']:
-                        out += port['@portid']
-                        out += ' '
-                        out += port['@protocol']
-                        out += '/'
-                        out += port['service']['@name']
-                        out += ' | '
                 out += '#'
             except KeyError:
                 out += host['address']['@addr']
-                out += ' '
-                out += host['status']['@state']
-                if 'port' in host['ports'].keys():
-                    out += ' '
-                    for port in host['ports']['port']:
-                        out += port['@portid']
-                        out += ' '
-                        out += port['@protocol']
-                        out += '/'
-                        out += port['service']['@name']
-                        out += ' | '
                 out += '#'
         return out
 
