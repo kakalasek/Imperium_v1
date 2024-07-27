@@ -43,7 +43,7 @@
         <div class="container-fluid border border-black border-2 rounded p-3">
                 {% for host_ip in data["hosts"].split('#') %}
                 <div class="row mt-3">
-                    <a href="{{ url_for('host' ) }}"> {{ host_ip }} </a>
+                    <a href="{{ url_for('host') }}?host_ip={{host_ip}}"> {{ host_ip }} </a>
                 </div>
                 {% endfor %}
         </div>

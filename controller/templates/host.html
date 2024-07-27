@@ -1,6 +1,100 @@
-{% extends 'layout.html' %}
-{% block content %}
+{% extends 'layout.html' %} {% block content %}
 
-    Hello there
+<div class="container-fluid min-vh-100">
+  <div class="row">
+    <div class="col min-vh-100">
+      <div class="d-flex flex-column gap-2 min-vh-100">
+        <div class="container-fluid border border-dark">
+          <div class="row">
+            <div class="col">
+              <div class="d-flex flex-column">
+                <div class="ps-1 p-2">
+                  <b><h4>Address</h4></b>
+                </div>
+                <div class="p-1">IPv4:</div>
+                <div class="p-1">IPv6:</div>
+                <div class="p-1">MAC:</div>
+                <div class="p-1">MAC Vendor:</div>
+                <div class="p-1">Hostnames:</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid border border-dark">
+          <div class="row">
+            <div class="col">
+              <div class="d-flex flex-column">
+                <div class="ps-1 p-2">
+                  <b><h4>Device</h4></b>
+                </div>
+                <div class="pb-0 p-1"><h5>Status:</h5></div>
+                <div class="ps-3 p-1">Reason:</div>
+                <div class="ps-3 p-1">Reason_TTL:</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid border border-dark">
+          <div class="row">
+            <div class="col">
+              <div class="d-flex flex-column">
+                <div class="ps-1 p-2">
+                  <b><h4>OS</h4></b>
+                </div>
+                <div class="p-1">Name:</div>
+                <div class="p-1">Accuracy:</div>
+                <div class="pb-0 p-1"><h5>Class:</h5></div>
+                <div class="ps-3 p-1">OS Family:</div>
+                <div class="ps-3 p-1">OS Gen:</div>
+                <div class="ps-3 p-1">Type:</div>
+                <div class="ps-3 p-1">Vendor:</div>
+                <div class="ps-3 p-1">Accuracy:</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button type="button" class="btn btn-primary">Download JSON</button>
+        </div>
+      </div>
+    </div>
+    <div class="col min-vh-100">
+      <div class="d-flex flex-column gap-2 min-vh-100">
+        <div class="container-fluid border border-dark vh-100 overflow-hidden">
+          <div class="row">
+            <div class="col">
+              <div class="d-flex flex-column vh-100">
+                <div class="ps-1 p-2">
+                  <b><h4>Ports</h4></b>
+                </div>
+                <div class="d-flex flex-column vh-100 overflow-auto p-1">
+                  <div class="p-1">
+                    <div class="container-fluid border border-dark">
+                      <div class="row">
+                        <div class="column">
+                          <div class="d-flex flex-column">
+                            <div class="p-1">Portid:</div>
+                            <div class="p-1">Protocol:</div>
+                            <div class="p-1">Name:</div>
+                            <div class="p-1">Product:</div>
+                            <div class="p-1">Version:</div>
+                            <div class="p-1">Extra Info:</div>
+                            <div class="pb-0 p-1"><h5>State:</h5></div>
+                            <div class="ps-3 p-1">Portid:</div>
+                            <div class="ps-3 p-1">Portid:</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
