@@ -18,7 +18,7 @@ def scanner():
     form = ApiForm()
     scanform = ScanForm()
     if request.method == 'POST' and scanform.validate():
-        data[0] = requests.get(f"{endpoints[0]}/@scan?range={scanform.ip.data}&options={scanform.scan_type.data}").json()
+        data[0] = requests.get(f"{endpoints[0]}/@scan?range={scanform.ip.data}&options={scanform.scan_type.data}").json()["nmaprun"]
         return redirect(url_for("scanner"))
     if request.method == 'POST' and form.validate():
         try:
