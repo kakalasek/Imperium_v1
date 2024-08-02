@@ -11,11 +11,31 @@
                 <div class="ps-1 p-2">
                   <b><h4>Address</h4></b>
                 </div>
-                <div class="p-1">IPv4:</div>
+                <div class="p-1">IPv4: 
+                  {% if without_mac %}
+                    {{ data["address"]["@addr"]}}
+                  {% else %}
+                    {{ data["address"][0]["@addr"]}}
+                  {% endif %}
+                </div>
                 <div class="p-1">IPv6:</div>
-                <div class="p-1">MAC:</div>
-                <div class="p-1">MAC Vendor:</div>
-                <div class="p-1">Hostnames:</div>
+                <div class="p-1">MAC: 
+                  {% if not without_mac %}
+                    {{ data["address"][1]["@addr"]}}
+                  {% endif %}
+                </div>
+                <div class="p-1">MAC Vendor:
+                  {% if not without_mac %}
+                    {% if data["address"][1]["@vendor"] is defined %}
+                      {{ data["address"][1]["@vendor"]}}
+                    {% endif %}
+                  {% endif %}
+                </div>
+                <div class="p-1">Hostnames:
+                  {% if data["hostnames"] is not none %}
+                    {{ data["hostnames"]}}
+                  {% endif %}
+                </div>
               </div>
             </div>
           </div>
@@ -27,9 +47,21 @@
                 <div class="ps-1 p-2">
                   <b><h4>Device</h4></b>
                 </div>
-                <div class="pb-0 p-1"><h5>Status:</h5></div>
-                <div class="ps-3 p-1">Reason:</div>
-                <div class="ps-3 p-1">Reason_TTL:</div>
+                <div class="pb-0 p-1"><h5>Status: 
+                  {% if data["status"] is defined %}
+                    {{ data["status"]["@state"] }}
+                  {% endif %}
+                </h5></div>
+                <div class="ps-3 p-1">Reason: 
+                  {% if data["status"] is defined %}
+                    {{ data["status"]["@reason"] }}
+                  {% endif %}
+                </div>
+                <div class="ps-3 p-1">Reason_TTL: 
+                  {% if data["status"] is defined %}
+                    {{ data["status"]["@reason_ttl"] }}
+                  {% endif %}
+                </div>
               </div>
             </div>
           </div>
@@ -41,14 +73,42 @@
                 <div class="ps-1 p-2">
                   <b><h4>OS</h4></b>
                 </div>
-                <div class="p-1">Name:</div>
-                <div class="p-1">Accuracy:</div>
+                <div class="p-1">Name: 
+                  {% if data["os"] is defined %}
+                    {{ data["os"]["osmatch"]["@name"] }}
+                  {% endif %}
+                </div>
+                <div class="p-1">Accuracy: 
+                  {% if data["os"] is defined %}
+                    {{data["os"]["osmatch"]["@accuracy"]}}
+                  {% endif %}
+                </div>
                 <div class="pb-0 p-1"><h5>Class:</h5></div>
-                <div class="ps-3 p-1">OS Family:</div>
-                <div class="ps-3 p-1">OS Gen:</div>
-                <div class="ps-3 p-1">Type:</div>
-                <div class="ps-3 p-1">Vendor:</div>
-                <div class="ps-3 p-1">Accuracy:</div>
+                <div class="ps-3 p-1">OS Family: 
+                  {% if data["os"] is defined %}
+                    {{data["os"]["osmatch"]["osclass"]["@osfamily"]}}
+                  {% endif %}
+                </div>
+                <div class="ps-3 p-1">OS Gen: 
+                  {% if data["os"] is defined %}
+                    {{ data["os"]["osmatch"]["osclass"]["@osgen"] }}
+                  {% endif %}
+                </div>
+                <div class="ps-3 p-1">Type:
+                  {% if data["os"] is defined %}
+                    {{ data["os"]["osmatch"]["osclass"]["@type"] }}
+                  {% endif %}
+                </div>
+                <div class="ps-3 p-1">Vendor: 
+                  {% if data["os"] is defined %}
+                    {{ data["os"]["osmatch"]["osclass"]["@vendor"] }}
+                  {% endif %}
+                </div>
+                <div class="ps-3 p-1">Accuracy: 
+                  {% if data["os"] is defined %}
+                    {{ data["os"]["osmatch"]["osclass"]["@accuracy"] }}
+                  {% endif %}
+                </div>
               </div>
             </div>
           </div>

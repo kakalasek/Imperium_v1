@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = "73eeac3fa1a0ce48f381ca1e6d71f077"
 
 endpoints = [False, False, False, False]
-data = ['', '', '', '']
+data = [{}, {}, {}, {}]
 
 @app.route("/")
 @app.route("/home")
@@ -19,6 +19,7 @@ def scanner():
     scanform = ScanForm()
     if request.method == 'POST' and scanform.validate():
         data[0] = requests.get(f"{endpoints[0]}/@scan?range={scanform.ip.data}&options={scanform.scan_type.data}").json()["nmaprun"]
+        print(type(data[0]))
         return redirect(url_for("scanner"))
     if request.method == 'POST' and form.validate():
         try:
@@ -29,9 +30,30 @@ def scanner():
             return redirect(url_for("scanner"))
     return render_template('scanner.html', title='Scanner', form=form, scanform=scanform, endpoint_set=endpoints[0], data=data[0])
 
-@app.route("/scanner/host", methods=['GET', 'POST'])
+@app.route("/scanner/host", methods=['GET'])
 def host():
-    return render_template('host.html', title=f'Host:{request.args.get('host')}')
+    without_mac = True
+
+
+    if isinstance(data[0]["host"], dict):
+        if "@addr" in data[0]["host"]["address"]:
+            host_data = data[0]["host"]
+        else:
+            host_data = data[0]["host"]
+            without_mac = False
+    else:
+        for host in data[0]["host"]:
+            if "@addr" in host["address"]:
+                if host["address"]["@addr"] == request.args.get('host_ip'):
+                    host_data = host
+                    break
+            else:
+                if host["address"][0]["@addr"] == request.args.get('host_ip'):
+                    host_data = host
+                    without_mac = False
+                    break
+
+    return render_template('host.html', title=f'Host:{request.args.get('host_ip')}', data=host_data, without_mac=without_mac)
 
 
 
