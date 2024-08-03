@@ -13,15 +13,21 @@
                 </div>
                 <div class="p-1">IPv4: 
                   {% if without_mac %}
-                    {{ data["address"]["@addr"]}}
+                    {% if data["address"]["@addr"] is defined %}
+                      {{ data["address"]["@addr"]}}
+                    {% endif %}
                   {% else %}
-                    {{ data["address"][0]["@addr"]}}
+                    {% if data["address"][0]["@addr"] is defined %}
+                      {{ data["address"][0]["@addr"]}}
+                    {% endif %}
                   {% endif %}
                 </div>
                 <div class="p-1">IPv6:</div>
                 <div class="p-1">MAC: 
                   {% if not without_mac %}
-                    {{ data["address"][1]["@addr"]}}
+                    {% if data["address"][1]["@addr"] is defined %}
+                      {{ data["address"][1]["@addr"]}}
+                    {% endif %}
                   {% endif %}
                 </div>
                 <div class="p-1">MAC Vendor:
@@ -32,8 +38,10 @@
                   {% endif %}
                 </div>
                 <div class="p-1">Hostnames:
-                  {% if data["hostnames"] is not none %}
-                    {{ data["hostnames"]}}
+                  {% if data["hostnames"] is defined%}
+                    {% if data["hostnames"] is not none %}
+                      {{ data["hostnames"]}}
+                    {% endif %}
                   {% endif %}
                 </div>
               </div>
@@ -49,17 +57,23 @@
                 </div>
                 <div class="pb-0 p-1"><h5>Status: 
                   {% if data["status"] is defined %}
-                    {{ data["status"]["@state"] }}
+                    {% if data["status"]["@state"] is defined %}
+                      {{ data["status"]["@state"] }}
+                    {% endif %}
                   {% endif %}
                 </h5></div>
                 <div class="ps-3 p-1">Reason: 
                   {% if data["status"] is defined %}
-                    {{ data["status"]["@reason"] }}
+                    {% if data["status"]["@reason"] is defined %}
+                      {{ data["status"]["@reason"] }}
+                    {% endif %}
                   {% endif %}
                 </div>
                 <div class="ps-3 p-1">Reason_TTL: 
                   {% if data["status"] is defined %}
-                    {{ data["status"]["@reason_ttl"] }}
+                    {% if data["status"]["@reason_ttl"] is defined %}
+                      {{ data["status"]["@reason_ttl"] }}
+                    {% endif %}
                   {% endif %}
                 </div>
               </div>
@@ -75,38 +89,74 @@
                 </div>
                 <div class="p-1">Name: 
                   {% if data["os"] is defined %}
-                    {{ data["os"]["osmatch"]["@name"] }}
+                    {% if data["os"]["osmatch"] is defined %}
+                      {% if data["os"]["osmatch"]["@name"] is defined %}
+                        {{ data["os"]["osmatch"]["@name"] }}
+                      {% endif %}
+                    {% endif %}
                   {% endif %}
                 </div>
                 <div class="p-1">Accuracy: 
                   {% if data["os"] is defined %}
-                    {{data["os"]["osmatch"]["@accuracy"]}}
+                    {% if data["os"]["osmatch"] is defined %}
+                      {% if data["os"]["osmatch"]["@accuracy"] is defined %}
+                        {{data["os"]["osmatch"]["@accuracy"]}}
+                      {% endif %}
+                    {% endif %}
                   {% endif %}
                 </div>
                 <div class="pb-0 p-1"><h5>Class:</h5></div>
                 <div class="ps-3 p-1">OS Family: 
                   {% if data["os"] is defined %}
-                    {{data["os"]["osmatch"]["osclass"]["@osfamily"]}}
+                    {% if data["os"]["osmatch"] is defined %}
+                      {% if data["os"]["osmatch"]["@osfamily"] is defined %}
+                        {{data["os"]["osmatch"]["osclass"]["@osfamily"]}}
+                      {% endif %}
+                    {% endif %}
                   {% endif %}
                 </div>
                 <div class="ps-3 p-1">OS Gen: 
                   {% if data["os"] is defined %}
-                    {{ data["os"]["osmatch"]["osclass"]["@osgen"] }}
+                    {% if data["os"]["osmatch"] is defined %}
+                      {% if data["os"]["osmatch"]["osclass"] is defined %}
+                        {% if data["os"]["osmatch"]["osclass"]["@osgen"] is defined %}
+                          {{ data["os"]["osmatch"]["osclass"]["@osgen"] }}
+                        {% endif %}
+                      {% endif %}
+                    {% endif %}
                   {% endif %}
                 </div>
                 <div class="ps-3 p-1">Type:
                   {% if data["os"] is defined %}
-                    {{ data["os"]["osmatch"]["osclass"]["@type"] }}
+                    {% if data["os"]["osmatch"] is defined %}
+                      {% if data["os"]["osmatch"]["osclass"] is defined %}
+                        {% if data["os"]["osmatch"]["osclass"]["@type"] is defined %}
+                          {{ data["os"]["osmatch"]["osclass"]["@type"] }}
+                        {% endif %}
+                      {% endif %}
+                    {% endif %}
                   {% endif %}
                 </div>
                 <div class="ps-3 p-1">Vendor: 
                   {% if data["os"] is defined %}
-                    {{ data["os"]["osmatch"]["osclass"]["@vendor"] }}
+                    {% if data["os"]["osmatch"] is defined %}
+                      {% if data["os"]["osmatch"]["osclass"] is defined %}
+                        {% if data["os"]["osmatch"]["osclass"]["@vendor"] is defined %}
+                          {{ data["os"]["osmatch"]["osclass"]["@vendor"] }}
+                        {% endif %}
+                      {% endif %}
+                    {% endif %}
                   {% endif %}
                 </div>
                 <div class="ps-3 p-1">Accuracy: 
                   {% if data["os"] is defined %}
-                    {{ data["os"]["osmatch"]["osclass"]["@accuracy"] }}
+                    {% if data["os"]["osmatch"] is defined %}
+                      {% if data["os"]["osmatch"]["osclass"] is defined %}
+                        {% if data["os"]["osmatch"]["osclass"]["@accuracy"] is defined %}
+                          {{ data["os"]["osmatch"]["osclass"]["@accuracy"] }}
+                        {% endif %}
+                      {% endif %}
+                    {% endif %}
                   {% endif %}
                 </div>
               </div>
@@ -128,25 +178,81 @@
                   <b><h4>Ports</h4></b>
                 </div>
                 <div class="d-flex flex-column vh-100 overflow-auto p-1">
-                  <div class="p-1">
-                    <div class="container-fluid border rounded border-dark">
-                      <div class="row">
-                        <div class="column">
-                          <div class="d-flex flex-column">
-                            <div class="p-1">Portid:</div>
-                            <div class="p-1">Protocol:</div>
-                            <div class="p-1">Name:</div>
-                            <div class="p-1">Product:</div>
-                            <div class="p-1">Version:</div>
-                            <div class="p-1">Extra Info:</div>
-                            <div class="pb-0 p-1"><h5>State:</h5></div>
-                            <div class="ps-3 p-1">Portid:</div>
-                            <div class="ps-3 p-1">Portid:</div>
+                  {% if data["ports"] is defined %}
+                    {% if data["ports"]["port"] is defined %}
+                      {% for port in data["ports"]["port"] %}
+                        <div class="p-1">
+                          <div class="container-fluid border rounded border-dark">
+                            <div class="row">
+                              <div class="column">
+                                <div class="d-flex flex-column">
+                                  <div class="p-1">Portid: 
+                                    {% if port["@portid"] is defined %}
+                                      {{ port["@portid"] }}
+                                    {% endif %}
+                                  </div>
+                                  <div class="p-1">Protocol: 
+                                    {% if port["@protocol"] is defined %}
+                                      {{ port["@protocol"] }}
+                                    {% endif %}
+                                  </div>
+                                  <div class="p-1">Service: 
+                                    {% if port["service"] is defined %}
+                                      {% if port["service"]["@name"] is defined %}
+                                        {{ port["service"]["@name"]}} 
+                                      {% endif %}
+                                    {% endif %}
+                                  </div>
+                                  <div class="p-1">Product: 
+                                    {% if port["service"] is defined %}
+                                      {% if port["service"]["@product"] is defined %}
+                                        {{ port["service"]["@product"]}} 
+                                      {% endif %}
+                                    {% endif %}
+                                  </div>
+                                  <div class="p-1">Version: 
+                                    {% if port["service"] is defined %}
+                                      {% if port["service"]["@version"] is defined %}
+                                        {{ port["service"]["@version"]}} 
+                                      {% endif %}
+                                    {% endif %}
+                                  </div>
+                                  <div class="p-1">Extra Info: 
+                                    {% if port["service"] is defined %}
+                                      {% if port["service"]["@extrainfo"] is defined %}
+                                        {{ port["service"]["@extrainfo"]}} 
+                                      {% endif %}
+                                    {% endif %}
+                                  </div>
+                                  <div class="pb-0 p-1"><h5>State:
+                                    {% if port["state"] is defined %}
+                                      {% if port["state"]["@state"] is defined %}
+                                        {{ port["state"]["@state"] }}
+                                      {% endif %}
+                                    {% endif %}
+                                  </h5></div>
+                                  <div class="ps-3 p-1">Reason: 
+                                    {% if port["state"] is defined %}
+                                      {% if port["state"]["@reason"] is defined %}
+                                        {{ port["state"]["@reason"] }}
+                                      {% endif %}
+                                    {% endif %}
+                                  </div>
+                                  <div class="ps-3 p-1">Reason_TTL:
+                                    {% if port["state"] is defined %}
+                                      {% if port["state"]["@reason_ttl"] is defined %}
+                                        {{ port["state"]["@reason_ttl"] }}
+                                      {% endif %}
+                                    {% endif %}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
+                      {% endfor %}
+                    {% endif %}
+                  {% endif %}
                 </div>
               </div>
             </div>

@@ -19,7 +19,6 @@ def scanner():
     scanform = ScanForm()
     if request.method == 'POST' and scanform.validate():
         data[0] = requests.get(f"{endpoints[0]}/@scan?range={scanform.ip.data}&options={scanform.scan_type.data}").json()["nmaprun"]
-        print(type(data[0]))
         return redirect(url_for("scanner"))
     if request.method == 'POST' and form.validate():
         try:
@@ -33,7 +32,6 @@ def scanner():
 @app.route("/scanner/host", methods=['GET'])
 def host():
     without_mac = True
-
 
     if isinstance(data[0]["host"], dict):
         if "@addr" in data[0]["host"]["address"]:
